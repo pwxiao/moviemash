@@ -14,14 +14,12 @@ def vote_for_movies(request):
     movies = list(Movie.objects.all())
     random_movies = random.sample(movies, 2)
 
-    if request.method == 'POST':
-        # 处理用户的投票
-        movie_id = request.POST.get('movie_id')
-        rating = request.POST.get('rating')
-        movie = Movie.objects.get(pk=movie_id)
-        vote = Vote(movie=movie, rating=rating)
-        vote.save()
-        return HttpResponseRedirect('/')
+    # if request.method == 'POST':
+    #     # 处理用户的投票
+    #     movie_id = request.POST.get('movie_id')
+    #     rating = request.POST.get('rating')
+    #     movie = Movie.objects.get(pk=movie_id)
+    #     return HttpResponseRedirect('/')
 
     # 渲染 HTML 模板并传递随机选择的两部电影
     return render(request, 'votes/vote_for_movies.html', {

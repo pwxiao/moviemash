@@ -1,6 +1,6 @@
 import csv
 from django.contrib import admin
-from .models import Movie,Vote
+from .models import Movie
 
 @admin.action(description='导入数据')
 def import_data(self, request, queryset):
@@ -15,4 +15,4 @@ class MovieAdmin(admin.ModelAdmin):
     actions = [import_data] 
 
 admin.site.register(Movie, MovieAdmin)
-admin.site.register(Vote)
+
