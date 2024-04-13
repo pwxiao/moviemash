@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+    <title>Movie Rank</title>
+</head>
+<body>
+    <div class="mdui-container">
+    <div class="mdui-col">
+        <button class="mdui-btn mdui-btn-block mdui-color-theme-accent mdui-ripple">排行榜</button>
+      </div>
+   
+    <div class="mdui-table-fluid">
+        <table class="mdui-table">
+          <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Title</th>
+                <th>Votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for movie in movie_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ movie.title }}</td>  <!-- 访问电影标题 -->
+                <td>{{ movie.total_votes }}</td>  <!-- 访问投票数 -->
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</body>
+</html>

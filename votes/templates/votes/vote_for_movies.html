@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Movies</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+<script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin: 0;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-container input[type="number"] {
+            width: 60px;
+            text-align: center;
+            pointer-events: none;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">MovieMash</h1>
+    <a href="{% url 'votes:rank' %}"><mdui-button>评分排行榜</mdui-button></a>
+    <a href="/"><mdui-button>跳过本次</mdui-button></a>
+    <div class="container">
+        {% if movie1 %}
+        <div class="card">
+            <h2>{{ movie1.title }}</h2>
+            <img src="{{ movie1.image_url }}" alt="{{ movie1.title }}">
+            <p>{{ movie1.title }}</p>
+            <div class="form-container">
+                <mdui-chip id="movie1-vote">{{ movie1_votes }}</mdui-chip>
+                <mdui-button onclick="vote('movie1', '{{ movie1.id }}')">投票</mdui-button>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if movie2 %}
+        <div class="card">
+            <h2>{{ movie2.title }}</h2>
+            <img src="{{ movie2.image_url }}" alt="{{ movie2.title }}">
+            <p>{{ movie2.title }}</p>
+            <div class="form-container">
+                <mdui-chip id="movie2-vote">{{ movie2_votes }}</mdui-chip>
+                <mdui-button onclick="vote('movie2', '{{ movie2.id }}')">投票</mdui-button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+
+    function vote(movieId,movieIdValue) {
+        // 视图层更新
+        var voteCountElement = $('#' + movieId + '-vote');
+            var voteCount = parseInt(voteCountElement.text());
+            // 投票数加1
+            voteCount += 1;
+            // 更新投票数显示
+            voteCountElement.text(voteCount);
+        // 数据库更新
+        $.post('/vote/', {movie_id: movieIdValue, csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data) {
+            console.log('Vote successfully recorded');
+            location.reload();
+        });
+    }
+
+
+    </script>
+</body>
+</html>
