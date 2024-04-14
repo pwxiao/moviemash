@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure--u_959zg0xfbpy@02!fqj*&pj^c1+$e!@paa8@a3xt(ocf*jmq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 
 # Application definition
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "moviemash.wsgi.application"
+WSGI_APPLICATION = 'api.wsgi.app'
 
 
 # Database
