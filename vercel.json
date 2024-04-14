@@ -1,15 +1,8 @@
 {
-    "builds": [
-      {
-        "src": "vercel_app/wsgi.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/moviemash/(.*)",
-        "dest": "vercel_app/wsgi.py"
-      }
-    ]
-  }
-  
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/wsgi.py"
+    }
+  ]
+}
